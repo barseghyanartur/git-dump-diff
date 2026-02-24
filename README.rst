@@ -5,7 +5,7 @@ git-dump-diff
 
 .. _git-dump-diff: https://github.com/barseghyanartur/git-dump-diff/
 
-Git diff tool that shows a tree of changed files followed by their full 
+Git diff tool that shows a tree of changed files followed by their full
 content.
 
 .. image:: https://img.shields.io/pypi/v/git-dump-diff.svg
