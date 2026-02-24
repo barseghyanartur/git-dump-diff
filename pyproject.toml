@@ -1,0 +1,268 @@
+[project]
+name = "git-dump-diff"
+description = "Git diff tool that shows a tree of changed files followed by their full content."
+readme = "README.rst"
+version = "0.1"
+dependencies = []
+authors = [
+    {name = "Artur Barseghyan", email = "artur.barseghyan@gmail.com"},
+]
+maintainers = [
+    {name = "Artur Barseghyan", email = "artur.barseghyan@gmail.com"},
+]
+license = {text = "MIT"}
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
+    "Topic :: Software Development :: Version Control :: Git",
+    "Topic :: System :: Systems Administration",
+    "Topic :: Utilities",
+]
+keywords = [
+    "git",
+    "diff",
+    "code-review",
+    "cli",
+    "vcs",
+]
+
+[project.urls]
+Homepage = "https://github.com/barseghyanartur/git-dump-diff/"
+Issues = "https://github.com/barseghyanartur/git-dump-diff/issues"
+Documentation = "https://git-dump-diff.readthedocs.io/"
+Repository = "https://github.com/barseghyanartur/git-dump-diff/"
+Changelog = "https://git-dump-diff.readthedocs.io/en/latest/changelog.html"
+
+[project.optional-dependencies]
+all = ["git-dump-diff[build,dev,test,docs]"]
+build = [
+    "build",
+    "twine",
+    "wheel",
+]
+dev = [
+    "detect-secrets",
+    "doc8",
+    "ipython",
+    "mypy",
+    "pydoclint",
+    "ruff",
+    "uv",
+]
+test = [
+    "fake.py",
+    "pytest",
+    "pytest-cov",
+    "pytest-codeblock",
+]
+docs = [
+    "sphinx",
+    "sphinx-rtd-theme>=1.3.0",
+    "sphinx-no-pragma",
+    "sphinx-llms-txt-link",
+    "sphinx-source-tree",
+
+]
+
+[project.scripts]
+git-dump-diff = "git_dump_diff:main"
+
+[tool.setuptools]
+py-modules = ["git_dump_diff"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["git_dump_diff"]
+exclude = [".github", "docs*", "examples*"]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.ruff]
+line-length = 80
+target-version = "py39"
+
+[tool.ruff.lint]
+select = [
+    "B",    # Bugbear
+    "C4",   # Complexity
+    "E",    # Pycodestyle errors
+    "F",    # Pyflakes
+    "G",    # Logging format
+    "I",    # Isort
+    "ISC",  # Implicit string concatenation
+    "INP",  # Implicit namespace
+    "N",    # Naming
+    "Q",  # Q for Q
+    "PERF", # Performance
+    "SIM",  # Simplify
+    "TD",  # TODO formatting
+]
+ignore = [
+    "G004", # Allow f-strings in logging
+    "ISC003",
+    "TD002",
+    "TD003",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"conftest.py" = ["PERF203"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["git_dump_diff"]
+known-third-party = []
+
+[tool.pytest.ini_options]
+addopts = [
+    "-ra",
+    "-vvv",
+    "-q",
+    "--cov=git_dump_diff",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--cov-report=term",
+    "--cov-report=annotate",
+    "--cov-append",
+    "--capture=no",
+]
+testpaths = ["tests"]
+
+[tool.mypy]
+check_untyped_defs = true
+warn_unused_ignores = true
+
+[tool.pydoclint]
+style = "sphinx"
+exclude = "\\.git|\\.tox|tests/data|\\.venv"
+require-return-section-when-returning-nothing = false
+allow-init-docstring = true
+arg-type-hints-in-docstring = false
+
+[tool.doc8]
+ignore-path = [
+    "docs/requirements.txt",
+    "src/git_dump_diff.egg-info/SOURCES.txt",
+]
+
+markers = [
+    "slow: mark a test that takes a long time to run.",
+]
+
+[tool.coverage.run]
+relative_files = true
+omit = [".tox/*"]
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "@overload",
+]
+
+[tool.sphinx-source-tree]
+ignore = [
+    "__pycache__",
+    "*.pyc",
+    "*.pyo",
+    "*.py,cover",
+    ".git",
+    ".hg",
+    ".svn",
+    ".tox",
+    ".nox",
+    ".venv",
+    "venv",
+    "env",
+    "*.egg-info",
+    "dist",
+    "build",
+    "node_modules",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".coverage",
+    "htmlcov",
+    ".idea",
+    ".vscode",
+    ".DS_Store",
+    "Thumbs.db",
+    ".ruff_cache",
+    ".coverage.*",
+    ".secrets.baseline",
+    ".pre-commit-config.yaml",
+    ".pre-commit-hooks.yaml",
+    ".readthedocs.yaml",
+    "CHANGELOG.rst",
+    "CODE_OF_CONDUCT.rst",
+    "LICENSE",
+    "SECURITY.rst",
+    "docs/changelog.rst",
+    "docs/code_of_conduct.rst",
+    "docs/security.rst",
+    "docs/source_tree.rst",
+    "docs/source_tree_full.rst",
+    "docs/make.bat",
+    "docs/Makefile",
+]
+
+[[tool.sphinx-source-tree.files]]
+output = "docs/source_tree_full.rst"
+title = "Full project source-tree"
+
+[[tool.sphinx-source-tree.files]]
+output = "docs/source_tree.rst"
+title = "Project source-tree"
+ignore = [
+    "__pycache__",
+    "*.pyc",
+    "*.pyo",
+    "*.py,cover",
+    ".git",
+    ".hg",
+    ".svn",
+    ".tox",
+    ".nox",
+    ".venv",
+    "venv",
+    "env",
+    "*.egg-info",
+    "dist",
+    "build",
+    "node_modules",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".coverage",
+    "htmlcov",
+    ".idea",
+    ".vscode",
+    ".DS_Store",
+    "Thumbs.db",
+    ".ruff_cache",
+    ".coverage.*",
+    ".secrets.baseline",
+    ".pre-commit-config.yaml",
+    ".pre-commit-hooks.yaml",
+    ".readthedocs.yaml",
+    "CHANGELOG.rst",
+    "CODE_OF_CONDUCT.rst",
+    "LICENSE",
+    "SECURITY.rst",
+    "docs/changelog.rst",
+    "docs/code_of_conduct.rst",
+    "docs/security.rst",
+    "docs/source_tree.rst",
+    "docs/source_tree_full.rst",
+    "docs/make.bat",
+    "docs/Makefile",
+    "examples",
+    "docs",
+]
