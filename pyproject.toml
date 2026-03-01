@@ -2,7 +2,7 @@
 name = "git-dump-diff"
 description = "Git diff tool that shows a tree of changed files followed by their full content."
 readme = "README.rst"
-version = "0.1"
+version = "0.1.1"
 dependencies = []
 authors = [
     {name = "Artur Barseghyan", email = "artur.barseghyan@gmail.com"},
@@ -75,6 +75,9 @@ docs = [
 
 [project.scripts]
 git-dump-diff = "git_dump_diff:main"
+git-full-diff = "git_dump_diff:main"
+git-diff-dump = "git_dump_diff:main"
+git-diff-full = "git_dump_diff:main"
 
 [tool.setuptools]
 py-modules = ["git_dump_diff"]
